@@ -27,7 +27,22 @@ public class DoubleLinkedList<T> implements IList<T> {
 
     @Override
     public void add(T item) {
-        throw new NotYetImplementedException();
+    		Node newNode = new Node(item);
+    		if(front == null) {
+    			if(back !=null) {
+    				throw new AssertionError();
+    			}
+    			front = newNode;
+    			back = front;
+    			this.size++;
+    		}
+    		else {
+    			back.setNextNode(newNode);
+    			newNode.setNextNode(null);
+    			back = newNode;
+    			this.size++;
+    		}
+    		
     }
 
     @Override
@@ -35,13 +50,27 @@ public class DoubleLinkedList<T> implements IList<T> {
         throw new NotYetImplementedException();
     }
 
+    
     @Override
     public T get(int index) {
-        throw new NotYetImplementedException();
+    	if(index <0 || index>=this.size) {
+			throw new IndexOutOfBoundsException();
+		}
+    	Node current = front;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+		return (T) current.data;
     }
 
+    /**
+     * Overwrites the element located at the given index with the new item.
+     *
+     * @throws IndexOutOfBoundsException if the index < 0 or index >= this.size()
+     */
     @Override
     public void set(int index, T item) {
+    		
         throw new NotYetImplementedException();
     }
 
@@ -62,13 +91,16 @@ public class DoubleLinkedList<T> implements IList<T> {
 
     @Override
     public int size() {
-        throw new NotYetImplementedException();
+    		return this.size;
+        //throw new NotYetImplementedException();
     }
 
     @Override
     public boolean contains(T other) {
         throw new NotYetImplementedException();
     }
+    
+    
 
     @Override
     public Iterator<T> iterator() {
@@ -96,6 +128,19 @@ public class DoubleLinkedList<T> implements IList<T> {
         }
 
         // Feel free to add additional constructors or methods to this class.
+        
+        //ADDITIONAL METHODS
+        private E getData() {
+        		return this.data;
+        }
+        private void setNextNode(Node n) {
+        		this.next = n;
+        }
+        private Node getNextNode() {
+        		return this.next;
+        }
+      //END OF ADDITIONAL METHODS
+        
     }
 
     private static class DoubleLinkedListIterator<T> implements Iterator<T> {
