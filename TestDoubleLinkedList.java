@@ -145,9 +145,10 @@ public class TestDoubleLinkedList extends BaseTest {
         for (int i = 0; i < iterators; i++) {
             String entry = "" + i;
             list.add(entry);
+            System.out.println("added "+entry);
             assertEquals(1, list.size());
-
             String out = list.remove();
+            System.out.println("removed "+out);
             assertEquals(entry, out);
             assertEquals(0, list.size());
         }

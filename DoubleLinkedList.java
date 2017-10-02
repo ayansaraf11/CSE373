@@ -30,24 +30,49 @@ public class DoubleLinkedList<T> implements IList<T> {
     		Node newNode = new Node(item);
     		if(front == null) {
     			if(back !=null) {
-    				throw new AssertionError();
+    				throw new AssertionError("back is occupied");
     			}
     			front = newNode;
     			back = front;
     			this.size++;
+    			
     		}
     		else {
     			back.setNextNode(newNode);
     			newNode.setNextNode(null);
     			back = newNode;
     			this.size++;
+    			
     		}
     		
     }
+    
+    /**
+     * Removes and returns the item from the *end* of this IList.
+     *
+     * @throws EmptyContainerException if the container is empty and there is no element to remove.
+     */
 
     @Override
     public T remove() {
-        throw new NotYetImplementedException();
+    		if(this.size==0) {
+    			throw new EmptyContainerException();
+    		}
+    		Node lastNode = front;
+    		Node previousToLast = null;
+    		if(front.next == null) {
+    			front = null;
+    			back = null;
+    		}
+    		while(lastNode.next != null) {
+    			previousToLast = lastNode;
+    			lastNode = lastNode.next;
+    		}
+    		if(front !=null) {
+    			previousToLast.next = null;
+    		}
+    		this.size--;    		
+    		return (T) lastNode.data;
     }
 
     
