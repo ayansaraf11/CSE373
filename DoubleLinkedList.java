@@ -95,18 +95,114 @@ public class DoubleLinkedList<T> implements IList<T> {
      */
     @Override
     public void set(int index, T item) {
+    		if(index <0 || index>=this.size) {
+			throw new IndexOutOfBoundsException();
+		}
+    		Node current = front;
+    		if(index == 0) {
+    			if(front.next!=null) {
+    				front = new Node(item);
+    				front.next = current.next;
+    			}
+    			else {
+    				front = new Node(item);
+    			}
+    			return;
+    		}
+    		int counter = 1;
+    		Node previous = front;
+    		current = current.next;
+    		while(counter <= index) {
+    			if(counter == index) {
+    				Node currentBeforeReplace = current;
+    				if(current.next != null) {
+        				current = new Node(item);
+        				previous.next = current;
+        				current.next = currentBeforeReplace.next;
+    				}
+    				else {
+    					current = new Node(item);
+        				previous.next = current;
+        				current.next = null;
+    				}
+    				break;
+    			}
+    			current = current.next;
+    			previous = previous.next;
+    			counter++;
+    		}
     		
-        throw new NotYetImplementedException();
     }
+    
+    /**
+     * Inserts the given item at the given index. If there already exists an element
+     * at that index, shift over that element and any subsequent elements one index
+     * higher.
+     *
+     * @throws IndexOutOfBoundsException if the index < 0 or index >= this.size() + 1
+     */
 
     @Override
     public void insert(int index, T item) {
-        throw new NotYetImplementedException();
+    		if(index < 0 || index >= this.size()+1) {
+    			throw new IndexOutOfBoundsException();
+    		}
+    		Node previousHead = front;
+    		if(index == 0) {
+    			Node newHead = new Node(item);
+    			front = newHead;
+    			front.next = previousHead;
+    			this.size++;
+    		}
+    		else {
+    			int counter = 1;
+    			Node prevoiusNode = front;
+    			Node currentNode = front.next;
+    			while(counter <= index) {
+    				if(counter == index) {
+    					if(index > this.size-1) {
+    						Node newNode = new Node(item);
+    						prevoiusNode.next = newNode;
+    						newNode.next = null;
+    						this.size++;
+    						break;
+					}
+						
+    					if(currentNode.next != null) {
+    						Node newNode = new Node(item);
+    						prevoiusNode.next = newNode;
+    						newNode.next = currentNode;
+    						this.size++;
+    					}
+    					else {
+    						Node newNode = new Node(item);
+    						prevoiusNode.next = newNode;
+    						newNode.next = null;
+    						this.size++;
+    					}
+    				}
+    				prevoiusNode = currentNode;
+    				currentNode = currentNode.next;
+    				counter++;
+    			}
+    		}
+        //throw new NotYetImplementedException();
     }
 
+    /**
+     * Deletes the item at the given index. If there are any elements located at a higher
+     * index, shift them all down by one.
+     *
+     * @throws IndexOutOfBoundsException if the index < 0 or index >= this.size()
+     */
+    
     @Override
     public T delete(int index) {
-        throw new NotYetImplementedException();
+    		if(index<0 || index >= this.size()) {
+    			throw new IndexOutOfBoundsException();
+    		}
+    		return null;
+        //throw new NotYetImplementedException();
     }
 
     @Override
